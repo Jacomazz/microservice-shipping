@@ -30,13 +30,7 @@ public class ShippingService implements IShipping {
     }
 
     @Override
-    public Shipping updateShipping(int id, Shipping updatedShipping) {
-        if (repository.existsById(id)) {
-            updatedShipping.setId(id);
-            return repository.save(updatedShipping);
-        }
-        return null;
+    public Shipping updateShipping(Shipping updatedShipping) {
+        return repository.save(updatedShipping);
     }
-    
-    
 }
