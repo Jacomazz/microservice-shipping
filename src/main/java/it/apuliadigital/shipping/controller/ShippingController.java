@@ -14,11 +14,11 @@ import it.apuliadigital.shipping.service.IShipping;
 @RestController
 public class ShippingController {
     @Autowired
-    private IShipping service;
+    private IShipping shippingService;
 
     @GetMapping("/shippings")
     public ResponseEntity<List<Shipping>> getShippings() {
-        List<Shipping> shippings = service.getAllShippings();
+        List<Shipping> shippings = shippingService.getAllShippings();
         if (shippings.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -26,15 +26,17 @@ public class ShippingController {
     }
 
     @PostMapping("/shippings/create")
-    public boolean createShipping(Shipping newShipping) {
-        if (newShipping == null) {
-            return false;
+    public ResponseEntity<Shipping> createShipping(Shipping newShipping) {
+        Shipping saveShipping = shippingService.createShipping(newShipping);
+        if(saveShipping == null) {
+            return ResponseEntity.badRequest().build(); //bad request = error 400
         }
-        return service.createShipping(newShipping);
+        return ResponseEntity.ok(saveShipping);
     }
+
     @GetMapping("/shippings/{id}")
     public ResponseEntity<Shipping> getShippingById(int id) {
-        Shipping shipping = service.getShippingById(id);
+        Shipping shipping = shippingService.getShippingById(id);
         if (shipping == null) {
             return ResponseEntity.notFound().build();
         }
