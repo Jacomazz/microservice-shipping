@@ -9,6 +9,7 @@ public class Shipping {
     @Id
     @GeneratedValue
     private int id;
+    private int codiceOrdine;
     private EnumStatus status;
     private String destinationAddress;
     private String courier;
@@ -17,8 +18,9 @@ public class Shipping {
         // Default constructor
     }
 
-    public Shipping(int id, EnumStatus status, String destinationAddress, String courier) {
+    public Shipping(int id, int codiceOrdine, EnumStatus status, String destinationAddress, String courier) {
         this.id = id;
+        this.codiceOrdine = codiceOrdine;
         this.status = status;
         this.destinationAddress = destinationAddress;
         this.courier = courier;
