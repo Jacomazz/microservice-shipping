@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ShippingApplication<GestionarioLibreria>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "it.apuliadigital.shipping.ShippingApplication",
+            "projectName": "GestionarioLibreria",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

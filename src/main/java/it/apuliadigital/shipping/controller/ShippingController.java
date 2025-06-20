@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.apuliadigital.shipping.models.Shipping;
 import it.apuliadigital.shipping.service.IShipping;
 
@@ -15,6 +19,11 @@ import it.apuliadigital.shipping.service.IShipping;
 public class ShippingController {
     @Autowired
     private IShipping shippingService;
+
+    @Operation(summary = "Lista Spedizioni", description = "Metodo per restituire la lista di tutte le spedizioni.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista generata", content = @Content(schema = @Schema(implementation = Shipping.class))),
+            @ApiResponse(responseCode = "400", description = "Richiesta non valida") })
 
     @GetMapping("/shippings")
     public ResponseEntity<List<Shipping>> getShippings() {
@@ -25,14 +34,24 @@ public class ShippingController {
         return ResponseEntity.ok(shippings);
     }
 
+    @Operation(summary = "Nuova Spedizione", description = "Metodo per creare una nuova spedizione.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Spedizione create", content = @Content(schema = @Schema(implementation = Shipping.class))),
+            @ApiResponse(responseCode = "400", description = "Richiesta non valida") })
+
     @PostMapping("/shippings/create")
     public ResponseEntity<Shipping> createShipping(Shipping newShipping) {
         Shipping saveShipping = shippingService.createShipping(newShipping);
-        if(saveShipping == null) {
-            return ResponseEntity.badRequest().build(); //bad request = error 400
+        if (saveShipping == null) {
+            return ResponseEntity.badRequest().build(); // bad request = error 400
         }
         return ResponseEntity.ok(saveShipping);
     }
+
+    @Operation(summary = "Cerca Spedizione con ID", description = "Metodo per cercare una spedizione col suo ID.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Spedizione trovata", content = @Content(schema = @Schema(implementation = Shipping.class))),
+            @ApiResponse(responseCode = "400", description = "Richiesta non valida") })
 
     @GetMapping("/shippings/{id}")
     public ResponseEntity<Shipping> getShippingById(int id) {
