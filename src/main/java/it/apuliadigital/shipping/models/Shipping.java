@@ -56,6 +56,10 @@ public class Shipping {
         this.courier = courier;
     }
 
+    public int getCodiceOrdine() {
+        return codiceOrdine;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
