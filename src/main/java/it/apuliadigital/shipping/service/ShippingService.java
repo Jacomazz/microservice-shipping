@@ -20,12 +20,8 @@ public class ShippingService implements IShipping {
     }
 
     @Override
-    public boolean createShipping(Shipping newShipping) {
-        if (newShipping != null) {
-            repository.save(newShipping);
-            return true;
-        }
-        return false;
+    public Shipping createShipping(Shipping newShipping) {
+        return repository.save(newShipping);
     }
 
     @Override
