@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.apuliadigital.shipping.models.Shipping;
@@ -41,5 +42,18 @@ public class ShippingController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(shipping);
+    }
+
+    @PutMapping("/shippings/{id}")
+    public ResponseEntity<Shipping> updateShipping(Shipping updatedShipping) {
+        Shipping existingShipping = shippingService.getShippingById(updatedShipping.getId());
+        if (existingShipping == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Shipping updated = shippingService.updateShipping(updatedShipping);
+        if (updated == null) {
+            return ResponseEntity.badRequest().build(); //bad request = error 400
+        }
+        return ResponseEntity.ok(updated);
     }
 }

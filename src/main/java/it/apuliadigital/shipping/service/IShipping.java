@@ -8,5 +8,5 @@ public interface IShipping {
     public List<Shipping> getAllShippings();
     public Shipping createShipping(Shipping newShipping);
     public Shipping getShippingById(int id);
-    public Shipping updateShipping(int id, Shipping updatedShipping);
+    public Shipping updateShipping(Shipping updatedShipping);
 }
