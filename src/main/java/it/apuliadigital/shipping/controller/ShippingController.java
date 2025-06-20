@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import it.apuliadigital.shipping.models.Shipping;
 import it.apuliadigital.shipping.service.IShipping;
@@ -44,8 +41,8 @@ public class ShippingController {
         return ResponseEntity.ok(shipping);
     }
 
-    @PutMapping("/shippings/{id}")
-    public ResponseEntity<Shipping> updateShipping(Shipping updatedShipping) {
+    @PutMapping("/shippings/{shipping}")
+    public ResponseEntity<Shipping> updateShipping(@RequestParam Shipping updatedShipping) {
         Shipping existingShipping = shippingService.getShippingById(updatedShipping.getId());
         if (existingShipping == null) {
             return ResponseEntity.notFound().build();
