@@ -26,16 +26,17 @@ public class ShippingService implements IShipping {
 
     @Override
     public Shipping getShippingById(int id) {
-        // Logic to retrieve a shipping by ID
-        return null; // Placeholder return
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public Shipping updateShipping(int id, Shipping updatedShipping) {
-        // Logic to update an existing shipping
-        return null; // Placeholder return
+        if (repository.existsById(id)) {
+            updatedShipping.setId(id);
+            return repository.save(updatedShipping);
+        }
+        return null;
     }
-    
     
     
 }

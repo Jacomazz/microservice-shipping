@@ -27,6 +27,10 @@ public class Shipping {
     public int getId() {
         return id;
     }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public EnumStatus getStatus() {
         return status;
