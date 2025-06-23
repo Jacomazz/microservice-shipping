@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -60,5 +58,18 @@ public class ShippingController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(shipping);
+    }
+
+    @PutMapping("/shippings/{shipping}")
+    public ResponseEntity<Shipping> updateShipping(@RequestParam Shipping updatedShipping) {
+        Shipping existingShipping = shippingService.getShippingById(updatedShipping.getId());
+        if (existingShipping == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Shipping updated = shippingService.updateShipping(updatedShipping);
+        if (updated == null) {
+            return ResponseEntity.badRequest().build(); //bad request = error 400
+        }
+        return ResponseEntity.ok(updated);
     }
 }

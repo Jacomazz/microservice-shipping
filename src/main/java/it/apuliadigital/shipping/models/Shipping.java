@@ -1,10 +1,12 @@
 package it.apuliadigital.shipping.models;
 
 import it.apuliadigital.shipping.enums.EnumStatus;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class Shipping {
     @Id
     @GeneratedValue
@@ -28,10 +30,6 @@ public class Shipping {
 
     public int getId() {
         return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
     }
 
     public EnumStatus getStatus() {
@@ -58,6 +56,10 @@ public class Shipping {
         this.courier = courier;
     }
 
+    public int getCodiceOrdine() {
+        return codiceOrdine;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -75,4 +77,3 @@ public class Shipping {
     }
     
 }
-
