@@ -4,6 +4,8 @@ import it.apuliadigital.shipping.enums.EnumStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.Objects;
 
 @Entity
@@ -11,9 +13,13 @@ public class Shipping {
     @Id
     @GeneratedValue
     private int id;
+    @NotBlank
     private int codiceOrdine;
+    @NotBlank
     private EnumStatus status;
+    @NotBlank
     private String destinationAddress;
+    @NotBlank
     private String courier;
 
     public Shipping() {
