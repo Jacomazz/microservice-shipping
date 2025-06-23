@@ -1,23 +1,28 @@
 package it.apuliadigital.shipping.models;
 
 import it.apuliadigital.shipping.enums.EnumStatus;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 @Entity
+@Table(name = "shipping")
 public class Shipping {
     @Id
     @GeneratedValue
     private int id;
-    @NotBlank
+    @NotNull
     private int codiceOrdine;
-    @NotBlank
+    @NotNull
     private EnumStatus status;
-    @NotBlank
+    @NotBlank(message = "L'indirizzo di destinazione non può essere vuoto")
+    @Column(name = "destination_address", nullable = false)
     private String destinationAddress;
     @NotBlank
     private String courier;
@@ -46,11 +51,11 @@ public class Shipping {
         this.status = status;
     }
 
-    public String getdestinationAddress() {
+    public String getDestinationAddress() {
         return destinationAddress;
     }
 
-    public void setdestinationAddress(String destinationAddress) {
+    public void setDestinationAddress(String destinationAddress) {
         this.destinationAddress = destinationAddress;
     }
 
@@ -74,12 +79,14 @@ public class Shipping {
             return false;
         }
         Shipping shipping = (Shipping) o;
-        return id == shipping.id && Objects.equals(status, shipping.status) && Objects.equals(destinationAddress, shipping.destinationAddress) && Objects.equals(courier, shipping.courier);
+        return id == shipping.id && Objects.equals(status, shipping.status)
+                && Objects.equals(destinationAddress, shipping.destinationAddress)
+                && Objects.equals(courier, shipping.courier);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, status, destinationAddress, courier);
     }
-    
+
 }
